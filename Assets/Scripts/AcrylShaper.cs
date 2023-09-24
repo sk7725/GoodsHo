@@ -23,8 +23,8 @@ public class AcrylShaper : MonoBehaviour {
     public TextMeshProUGUI loadingLabel;
     public RawImage tempRenderer;
 
-    List<Vector2> path = new List<Vector2>();
-    List<Vector2> points = new List<Vector2>();
+    List<Vector2> path = new();
+    List<Vector2> points = new();
 
     void Start() {
         Shape(sourceImage);
