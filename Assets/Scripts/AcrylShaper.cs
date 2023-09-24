@@ -8,7 +8,7 @@ public class AcrylShaper : MonoBehaviour {
     [Header("Sources")]
     public Texture2D sourceImage;
     public Outliner outliner;
-    public Transform imageOffset;
+    public ImageScaler imageScaler;
 
     [Header("Front Acryl")]
     public MeshFilter filter;
@@ -21,7 +21,7 @@ public class AcrylShaper : MonoBehaviour {
     [Header("UI")]
     public Image loadingBar;
     public TextMeshProUGUI loadingLabel;
-    //public RawImage tempRenderer;
+    public RawImage tempRenderer;
 
     List<Vector2> path = new List<Vector2>();
     List<Vector2> points = new List<Vector2>();
@@ -37,11 +37,16 @@ public class AcrylShaper : MonoBehaviour {
         }
     }
 
+    Texture2D originalImage;
+
     public void Shape(Texture2D source) {
+        originalImage = source;
         mrenderer.enabled = false;
         mrendererBack.enabled = false;
         path.Clear();
         points.Clear();
+
+        imageScaler.SetImage(source);
 
         //Texture2D outlined = TextureOutlineGenerator.Generate(source, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor);
         //tempRenderer.texture = outlined;
@@ -53,7 +58,7 @@ public class AcrylShaper : MonoBehaviour {
     void AfterTextureGeneration(Texture2D outlined) {
         //tempRenderer.texture = outlined;
         GetPath(outlined);
-        transform.position = imageOffset.position;
+        transform.position = imageScaler.transform.position + Vector3.forward * 0.0025f;
 
         //todo is it always cw?
         points.Reverse();
@@ -77,14 +82,14 @@ public class AcrylShaper : MonoBehaviour {
         boundaryTracer.GetPath(0, ref path);
         LineUtility.Simplify(path, outliner.tolerance, points);
 
-        float scale = 100f / source.width;
+        float scale = 100f / (source.width - 2 * outliner.outlinePadding);
         for (int i = 0; i < points.Count; i++) {
             points[i] *= scale;
         }
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         if (!Application.isPlaying || points.Count < 3) return;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + (Vector3)points[0], transform.position + (Vector3)points[1]);
