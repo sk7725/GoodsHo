@@ -5,14 +5,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AcrylShaper : MonoBehaviour {
+    [Header("Sources")]
     public Texture2D sourceImage;
     public Outliner outliner;
-    public MeshFilter filter;
     public Transform imageOffset;
 
+    [Header("Front Acryl")]
+    public MeshFilter filter;
+    public MeshRenderer mrenderer;
+
+    [Header("Back Acryl")]
+    public MeshFilter filterBack;
+    public MeshRenderer mrendererBack;
+
+    [Header("UI")]
     public Image loadingBar;
     public TextMeshProUGUI loadingLabel;
-    public RawImage tempRenderer;//todo remove
+    //public RawImage tempRenderer;
 
     List<Vector2> path = new List<Vector2>();
     List<Vector2> points = new List<Vector2>();
@@ -29,6 +38,8 @@ public class AcrylShaper : MonoBehaviour {
     }
 
     public void Shape(Texture2D source) {
+        mrenderer.enabled = false;
+        mrendererBack.enabled = false;
         path.Clear();
         points.Clear();
 
@@ -40,9 +51,22 @@ public class AcrylShaper : MonoBehaviour {
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
-        tempRenderer.texture = outlined;
+        //tempRenderer.texture = outlined;
         GetPath(outlined);
         transform.position = imageOffset.position;
+
+        //todo is it always cw?
+        points.Reverse();
+
+        Destroy(outlined);
+        MeshGenerator.GenerateAsync(points, 0.05f, loadingLabel, loadingBar, AfterMeshGeneration, this);
+    }
+
+    void AfterMeshGeneration(Mesh mesh) {
+        filter.mesh = mesh;
+        mrenderer.enabled = true;
+        filterBack.mesh = mesh;
+        mrendererBack.enabled = true;
     }
 
     private void GetPath(Texture2D source) {
@@ -61,11 +85,15 @@ public class AcrylShaper : MonoBehaviour {
 
 #if UNITY_EDITOR
     private void OnDrawGizmos() {
-        if (!Application.isPlaying) return;
+        if (!Application.isPlaying || points.Count < 3) return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position + (Vector3)points[0], transform.position + (Vector3)points[1]);
         Gizmos.color = Color.yellow;
-        for (int i = 0; i < points.Count - 1; i++) {
+        for (int i = 1; i < points.Count - 1; i++) {
             Gizmos.DrawLine(transform.position + (Vector3)points[i], transform.position + (Vector3)points[i + 1]);
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position + (Vector3)points[points.Count - 1], transform.position + (Vector3)points[0]);
     }
 #endif
 }

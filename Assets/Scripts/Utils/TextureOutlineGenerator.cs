@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TextureOutlineGenerator {
+public static class TextureOutlineGenerator {
     public static Texture2D Generate(Texture2D source, int pad, int iterations, int downscale) {
         Texture2D initial = DownscaleTexture(source, downscale);
         Texture2D expanded = ExpandTexture(initial, pad);
