@@ -56,6 +56,8 @@ public class AcrylShaper : MonoBehaviour {
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
+        loadingLabel.text = "Getting Border...";
+        loadingBar.fillAmount = 0;
         //tempRenderer.texture = outlined;
         GetPath(outlined);
         transform.position = imageScaler.transform.position + Vector3.forward * 0.0025f;
@@ -64,10 +66,17 @@ public class AcrylShaper : MonoBehaviour {
         points.Reverse();
 
         Destroy(outlined);
-        MeshGenerator.GenerateAsync(points, 0.05f, loadingLabel, loadingBar, AfterMeshGeneration, this);
+        for (int i = 0; i < outliner.subdivisions; i++) {
+            ShapeSmoothing.SubdivideEdges(points, 2);
+            ShapeSmoothing.SmoothCorners(points, outliner.smoothingFactor, outliner.smoothingWindow);
+        }
+
+        MeshGenerator.GenerateAsync(points, outliner.thickness, loadingLabel, loadingBar, AfterMeshGeneration, this);
     }
 
     void AfterMeshGeneration(Mesh mesh) {
+        loadingLabel.text = "Done!";
+        loadingBar.fillAmount = 1;
         filter.mesh = mesh;
         mrenderer.enabled = true;
         filterBack.mesh = mesh;

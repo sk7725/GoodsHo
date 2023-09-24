@@ -16,6 +16,10 @@ MonoBehaviour:
   product: 1
   tolerance: 0.001
   alphaCutoff: 0.005
-  outlineIterations: 9
-  downscaleFactor: 12
+  outlineIterations: 3
+  downscaleFactor: 8
   outlinePadding: 20
+  subdivisions: 4
+  smoothingFactor: 0.3
+  smoothingWindow: 7
+  thickness: 0.02
