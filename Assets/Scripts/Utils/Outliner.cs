@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = nameof(Outliner), menuName = nameof(Outliner))]
+[CreateAssetMenu(fileName = "AcrylSettings", menuName = "GoodsHo/Acryl Gen Settings")]
 public class Outliner : ScriptableObject
 {
     [Header("Contour Tracing")]

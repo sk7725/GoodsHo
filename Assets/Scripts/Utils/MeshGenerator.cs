@@ -9,7 +9,7 @@ public static class MeshGenerator {
         caller.StartCoroutine(IGenerateAsync(source, thickness, label, loadingBar, endAction, caller));
     }
 
-    static List<Vector3> vertices = new();
+    static List<Vector3> vertices = new(), tmpv = new();
     static List<int> indices = new(), tmpi = new();
 
     static IEnumerator IGenerateAsync(List<Vector2> vertices2D, float thickness, TextMeshProUGUI label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
@@ -57,7 +57,14 @@ public static class MeshGenerator {
         //add side edges
         label.text = "Generating side faces...";
         yield return null;
-        for(int i = 0; i < offset - 1; i++) {
+
+        //first duplicate vertices
+        tmpv.Clear();
+        tmpv.AddRange(vertices);
+        vertices.AddRange(tmpv);
+
+        //cylinder edges
+        for (int i = offset * 2; i < offset * 3 - 1; i++) {
             int v1 = i;
             int v2 = i + 1;
             int v3 = i + 1 + offset;
