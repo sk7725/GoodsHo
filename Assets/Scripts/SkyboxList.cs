@@ -3,5 +3,5 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkyboxList", menuName ="GoodsHo/Skybox List")]
 public class SkyboxList : ScriptableObject {
-    public Material[] list = { };
+    public SkyboxData[] data = { };
 }
