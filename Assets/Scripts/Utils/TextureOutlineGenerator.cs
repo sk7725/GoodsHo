@@ -84,17 +84,17 @@ public static class TextureOutlineGenerator {
     }
 
     #region async
-    public static void GenerateAsync(Texture2D source, int pad, int iterations, int downscale, TextMeshProUGUI label, Image loadingBar, System.Action<Texture2D> endAction, MonoBehaviour caller) {
+    public static void GenerateAsync(Texture2D source, int pad, int iterations, int downscale, LocalizedTMP label, Image loadingBar, System.Action<Texture2D> endAction, MonoBehaviour caller) {
         caller.StartCoroutine(IGenerateAsync(source, pad, iterations, downscale, label, loadingBar, endAction, caller));
     }
 
-    static IEnumerator IGenerateAsync(Texture2D source, int pad, int iterations, int downscale, TextMeshProUGUI label, Image loadingBar, System.Action<Texture2D> endAction, MonoBehaviour caller) {
-        label.text = "Downscaling Texture...";
+    static IEnumerator IGenerateAsync(Texture2D source, int pad, int iterations, int downscale, LocalizedTMP label, Image loadingBar, System.Action<Texture2D> endAction, MonoBehaviour caller) {
+        label.Set("outline.downscale");
         loadingBar.fillAmount = 0f;
         yield return null;
         Texture2D initial = DownscaleTexture(source, downscale);
 
-        label.text = "Expanding Texture...";
+        label.Set("outline.expand");
         yield return null;
         Texture2D expanded = ExpandTexture(initial, pad);
         Object.Destroy(initial);
@@ -102,7 +102,7 @@ public static class TextureOutlineGenerator {
         Texture2D prev = expanded;
         for (int i = 0; i < iterations; i++) {
             loadingBar.fillAmount = 0f;
-            label.text = $"Applying Outline ({i+1}/{iterations})...";
+            label.Format("outline.gaussian", (i + 1).ToString(), iterations.ToString());
             
             Texture2D next = new Texture2D(prev.width, prev.height);
             yield return caller.StartCoroutine(IGaussStep(prev, next, loadingBar));
@@ -110,7 +110,7 @@ public static class TextureOutlineGenerator {
             prev = next;
         }
 
-        label.text = "";
+        label.Clear();
         endAction.Invoke(prev);
     }
 

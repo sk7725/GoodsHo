@@ -13,9 +13,9 @@ public class SkyboxButton : MonoBehaviour {
         GetComponent<Button>().onClick.AddListener(Clicked);
     }
 
-    public void Set(SkyboxData skybox) {
+    public void Set(SkyboxData skybox, string name) {
         this.skybox = skybox;
-        label.text = skybox.displayName;
+        label.text = name;
     }
 
     void Clicked() {
@@ -23,5 +23,8 @@ public class SkyboxButton : MonoBehaviour {
         Light light = GameObject.FindGameObjectWithTag("MainLight").GetComponent<Light>();
         light.colorTemperature = skybox.lightTemperature;
         light.color = skybox.lightColor;
+
+        ReflectionProbe probe = GameObject.FindGameObjectWithTag("MainReflectionProbe").GetComponent<ReflectionProbe>();
+        probe.RenderProbe();
     }
 }

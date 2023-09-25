@@ -5,15 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public static class MeshGenerator {
-    public static void GenerateAsync(List<Vector2> source, float thickness, TextMeshProUGUI label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
+    public static void GenerateAsync(List<Vector2> source, float thickness, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
         caller.StartCoroutine(IGenerateAsync(source, thickness, label, loadingBar, endAction, caller));
     }
 
     static List<Vector3> vertices = new(), tmpv = new();
     static List<int> indices = new(), tmpi = new();
 
-    static IEnumerator IGenerateAsync(List<Vector2> vertices2D, float thickness, TextMeshProUGUI label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
-        label.text = "Performing Triangulation...";
+    static IEnumerator IGenerateAsync(List<Vector2> vertices2D, float thickness, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
+        label.Set("mesh.triangulate");
         loadingBar.fillAmount = 0f;
 
         indices.Clear();
@@ -30,7 +30,7 @@ public static class MeshGenerator {
         }*/
 
         //add front face
-        label.text = "Generating front face...";
+        label.Set("mesh.front");
         yield return null;
 
         foreach (var v in vertices2D) {
@@ -39,7 +39,7 @@ public static class MeshGenerator {
         indices.AddRange(frontIndices);
 
         //add back face
-        label.text = "Generating back face...";
+        label.Set("mesh.back");
         yield return null;
 
         int offset = vertices.Count;
@@ -55,7 +55,7 @@ public static class MeshGenerator {
         }
 
         //add side edges
-        label.text = "Generating side faces...";
+        label.Set("mesh.sides");
         yield return null;
 
         //first duplicate vertices
@@ -80,7 +80,7 @@ public static class MeshGenerator {
         }
 
         //generate mesh
-        label.text = "Assigning Indices...";
+        label.Set("mesh.assign");
         yield return null;
         Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
@@ -100,7 +100,7 @@ public static class MeshGenerator {
         }
         mesh.normals = normals;*/
 
-        label.text = "";
+        label.Clear();
         loadingBar.fillAmount = 1f;
         endAction.Invoke(mesh);
     }

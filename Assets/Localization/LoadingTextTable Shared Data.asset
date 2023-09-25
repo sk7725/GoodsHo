@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: LoadingTextTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: LoadingTextTable
+  m_TableCollectionNameGuidString: 3cc848594f7efcd459cb7bbaadac2e26
+  m_Entries:
+  - m_Id: 26538102784
+    m_Key: getpath
+    m_Metadata:
+      m_Items: []
+  - m_Id: 373872611328
+    m_Key: done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 475320242176
+    m_Key: outline.downscale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 748017111040
+    m_Key: outline.expand
+    m_Metadata:
+      m_Items: []
+  - m_Id: 856943185920
+    m_Key: outline.gaussian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1004993728512
+    m_Key: mesh.triangulate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1404866088960
+    m_Key: mesh.front
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1555223498752
+    m_Key: mesh.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1593945313280
+    m_Key: mesh.sides
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1677571346432
+    m_Key: mesh.assign
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 904380776325840920
+  references:
+    version: 2
+    RefIds:
+    - rid: 904380776325840920
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1695639775634

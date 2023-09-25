@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: ef37a0597fdfacb4087d18211e589e28, type: 2}
   lightColor: {r: 1, g: 1, b: 1, a: 1}
-  lightTemperature: 5000
+  lightTemperature: 3000
   displayName: "\uC911\uAD6D\uD48D \uC601\uD654\uAD00"

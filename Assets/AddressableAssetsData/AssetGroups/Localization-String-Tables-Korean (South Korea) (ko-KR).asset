@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-Korean (South Korea) (ko-KR)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-String-Tables-Korean (South Korea) (ko-KR)
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 115b40b6765473b43bb07a52b8a3cfb0
+  m_SerializeEntries:
+  - m_GUID: d5a85bc27dde51142afaa1a8a348ed31
+    m_Address: LoadingTextTable_ko-KR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ko-KR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd487fbb829c09f44b95e15e8f722f5e
+    m_Address: SkyboxNameTable_ko-KR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ko-KR
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ca00450207530f48984d14f56111938
+    m_Address: UITable_ko-KR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-ko-KR
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 85b1d162e8f764a4c9be373af3032dc9, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f361937dc2ebe3d40bd13a330aedfca6, type: 2}
+    - {fileID: 11400000, guid: d597689883d4ef44da6cf057afbd47a9, type: 2}

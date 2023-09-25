@@ -20,7 +20,7 @@ public class AcrylShaper : MonoBehaviour {
 
     [Header("UI")]
     public Image loadingBar;
-    public TextMeshProUGUI loadingLabel;
+    public LocalizedTMP loadingLabel;
     public RawImage tempRenderer;
 
     List<Vector2> path = new();
@@ -56,11 +56,19 @@ public class AcrylShaper : MonoBehaviour {
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
-        loadingLabel.text = "Getting Border...";
+        loadingLabel.Set("getpath");
         loadingBar.fillAmount = 0;
         //tempRenderer.texture = outlined;
         GetPath(outlined);
-        transform.position = imageScaler.transform.position + Vector3.forward * 0.0025f;
+
+        float miny = 0f;
+        for (int i = 0; i < points.Count; i++) {
+            if(miny > points[i].y) miny = points[i].y;
+        }
+        float l = -miny;
+
+        transform.localPosition = Vector3.forward * 0.0025f + Vector3.up * l;
+        imageScaler.transform.localPosition = Vector3.up * l;
 
         //todo is it always cw?
         points.Reverse();
@@ -80,7 +88,7 @@ public class AcrylShaper : MonoBehaviour {
     }
 
     void AfterMeshGeneration(Mesh mesh) {
-        loadingLabel.text = "Done!";
+        loadingLabel.Set("done");
         loadingBar.fillAmount = 1;
         filter.mesh = mesh;
         mrenderer.enabled = true;

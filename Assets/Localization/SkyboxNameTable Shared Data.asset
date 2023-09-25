@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: SkyboxNameTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: SkyboxNameTable
+  m_TableCollectionNameGuidString: 704d42f43b7255b4ea7cea61c722b871
+  m_Entries:
+  - m_Id: 16115257344
+    m_Key: Chinese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60658765824
+    m_Key: Cosmic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 81395404800
+    m_Key: Dallas
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94901063680
+    m_Key: Day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 110273187840
+    m_Key: Earth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 124454129664
+    m_Key: Fantasy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 146860101632
+    m_Key: Green Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 175326842880
+    m_Key: Marriott
+    m_Metadata:
+      m_Items: []
+  - m_Id: 205471305728
+    m_Key: Night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 221766176768
+    m_Key: None
+    m_Metadata:
+      m_Items: []
+  - m_Id: 233245986816
+    m_Key: Rain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 250954338304
+    m_Key: Sunset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 275524571136
+    m_Key: Vasa
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 904380776325840925
+  references:
+    version: 2
+    RefIds:
+    - rid: 904380776325840925
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1695641212961

@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AcrylicScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 73697ff95277f3949a2ad973306e21de,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: aa8e7ddb0850bee4a835cb35685b24d1,
+      type: 2}

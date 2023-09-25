@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Cosmic
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
-  lightColor: {r: 1, g: 1, b: 1, a: 1}
+  lightColor: {r: 0.41176474, g: 0.49018368, b: 1, a: 1}
   lightTemperature: 7000
   displayName: "\uC6B0\uC8FC"
