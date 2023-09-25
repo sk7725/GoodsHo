@@ -71,6 +71,11 @@ public class AcrylShaper : MonoBehaviour {
             ShapeSmoothing.SmoothCorners(points, outliner.smoothingFactor, outliner.smoothingWindow);
         }
 
+        //simplify mesh
+        path.Clear();
+        path.AddRange(points);
+        LineUtility.Simplify(path, outliner.finalTolerance, points);
+
         MeshGenerator.GenerateAsync(points, outliner.thickness, loadingLabel, loadingBar, AfterMeshGeneration, this);
     }
 
@@ -98,6 +103,8 @@ public class AcrylShaper : MonoBehaviour {
     }
 
 #if UNITY_EDITOR
+    List<Vector3> gizmo_tmp = new(), gizmo_tmp2 = new();
+
     private void OnDrawGizmosSelected() {
         if (!Application.isPlaying || points.Count < 3) return;
         Gizmos.color = Color.red;
@@ -108,6 +115,19 @@ public class AcrylShaper : MonoBehaviour {
         }
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + (Vector3)points[points.Count - 1], transform.position + (Vector3)points[0]);
+
+        int n = filter.sharedMesh.vertexCount;
+        gizmo_tmp.Clear();
+        gizmo_tmp2.Clear();
+        filter.sharedMesh.GetVertices(gizmo_tmp);
+        filter.sharedMesh.GetNormals(gizmo_tmp2);
+
+        Gizmos.color = Color.cyan;
+        for(int i = 0; i < n; i++) {
+            Vector3 v = gizmo_tmp[i];
+            Vector3 norm = gizmo_tmp2[i];
+            Gizmos.DrawLine(transform.position + v, transform.position + v + norm * 0.05f);
+        }
     }
 #endif
 }

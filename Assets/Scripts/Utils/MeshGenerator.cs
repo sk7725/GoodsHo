@@ -81,6 +81,18 @@ public static class MeshGenerator {
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
+        //align normals
+        //todo add second layer of normals??
+        /*
+        Vector3[] normals = mesh.normals;
+        for (int i = 0; i < offset; i++) {
+            normals[i] = Vector3.forward;
+        }
+        for (int i = offset; i < offset << 1; i++) {
+            normals[i] = -Vector3.forward;
+        }
+        mesh.normals = normals;*/
+
         label.text = "";
         loadingBar.fillAmount = 1f;
         endAction.Invoke(mesh);

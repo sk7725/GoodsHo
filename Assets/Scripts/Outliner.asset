@@ -22,4 +22,5 @@ MonoBehaviour:
   subdivisions: 4
   smoothingFactor: 0.3
   smoothingWindow: 7
+  finalTolerance: 0.0001
   thickness: 0.02

@@ -22,6 +22,7 @@ public class Outliner : ScriptableObject
     public int subdivisions = 1;
     public float smoothingFactor = 0.2f;
     public int smoothingWindow = 5;
+    public float finalTolerance = 0.005f;
 
     [Header("Mesh Generation")]
     public float thickness = 0.02f;
