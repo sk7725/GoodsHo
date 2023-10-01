@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AcrylicScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/WebGLFileUploader/Examples/FileUploadExample/FileUploadExample.unity
+    guid: 994ec4107af5eac48b07baa79707593e
+  - enabled: 1
+    path: Assets/WebGLFileUploader/Examples/WebGLFileUploaderExample.unity
+    guid: 78df0ace39d4adf4aa41f61b1eff05ae
+  - enabled: 1
+    path: Assets/WebGLFileUploader/Examples/Texture2DToMatExample/Texture2DToMatExample.unity
+    guid: 4ba46880ffccbe24299734861ef9473c
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 73697ff95277f3949a2ad973306e21de,
       type: 2}

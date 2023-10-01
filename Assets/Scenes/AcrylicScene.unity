@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27853a31f3b8f1b4f8c5f6827b416e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceImage: {fileID: 2800000, guid: f42a49ee7e52ed948a8810d2de22f1d0, type: 3}
+  sourceImage: {fileID: 2800000, guid: 682b3d04011a04d41abd964b7d8cf5f8, type: 3}
   outliner: {fileID: 11400000, guid: 7ed8c9252e2bb6740a76469eb4774424, type: 2}
   imageScaler: {fileID: 1962873224}
   filter: {fileID: 289219106}
@@ -2054,7 +2054,7 @@ ReflectionProbe:
   m_Mode: 1
   m_RefreshMode: 2
   m_TimeSlicingMode: 1
-  m_Resolution: 128
+  m_Resolution: 1024
   m_UpdateFrequency: 0
   m_BoxSize: {x: 100, y: 100, z: 100}
   m_BoxOffset: {x: 0, y: 0, z: 0}
