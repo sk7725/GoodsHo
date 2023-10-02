@@ -5,16 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public static class MeshGenerator {
-    public static void GenerateAsync(List<Vector2> source, float thickness, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
-        caller.StartCoroutine(IGenerateAsync(source, thickness, label, loadingBar, endAction, caller));
+    public static bool highQuality = true;
+
+    public static void GenerateAsync(List<Vector2> source, float thickness, float bevelAmount, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
+        caller.StartCoroutine(IGenerateAsync(source, thickness, bevelAmount,label, loadingBar, endAction, caller));
     }
 
     static List<Vector3> vertices = new(), tmpv = new();
     static List<int> indices = new(), tmpi = new();
 
-    static IEnumerator IGenerateAsync(List<Vector2> vertices2D, float thickness, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
+    static IEnumerator IGenerateAsync(List<Vector2> vertices2D, float thickness, float bevelAmount, LocalizedTMP label, Image loadingBar, System.Action<Mesh> endAction, MonoBehaviour caller) {
         label.Set("mesh.triangulate");
         loadingBar.fillAmount = 0f;
+        Mesh mesh = new Mesh();
 
         indices.Clear();
         vertices.Clear();
@@ -79,13 +82,46 @@ public static class MeshGenerator {
             indices.Add(v3);
         }
 
+        if (highQuality && bevelAmount > 0) {
+            float b = bevelAmount * thickness;
+
+            //force mesh calculation to obtain normals used for beveling
+            mesh.vertices = vertices.ToArray();
+            mesh.triangles = indices.ToArray();
+            mesh.RecalculateNormals();
+
+            Vector3[] norms = mesh.normals;
+
+            //mesh state: front back front-side back-side
+            //offset cylinder mesh
+            for (int i = 0; i < offset; i++) {
+                vertices[i] += -b * norms[i + 2 * offset];
+                vertices[i + 2 * offset] += Vector3.forward * b;
+            }
+
+            //generate bevelled edges
+            for (int i = 0; i < offset - 1; i++) {
+                int v1 = i;
+                int v2 = i + 1;
+                int v3 = i + 1 + offset * 2;
+                int v4 = i + offset * 2;
+
+                indices.Add(v1);
+                indices.Add(v3);
+                indices.Add(v2);
+
+                indices.Add(v1);
+                indices.Add(v4);
+                indices.Add(v3);
+            }
+        }
+
         //generate mesh
         label.Set("mesh.assign");
         yield return null;
-        Mesh mesh = new Mesh();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = indices.ToArray();
-        mesh.RecalculateNormals();
+        //mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
         //align normals

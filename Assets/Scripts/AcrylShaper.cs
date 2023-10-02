@@ -84,7 +84,7 @@ public class AcrylShaper : MonoBehaviour {
         path.AddRange(points);
         LineUtility.Simplify(path, outliner.finalTolerance, points);
 
-        MeshGenerator.GenerateAsync(points, outliner.thickness, loadingLabel, loadingBar, AfterMeshGeneration, this);
+        MeshGenerator.GenerateAsync(points, outliner.thickness, outliner.bevel, loadingLabel, loadingBar, AfterMeshGeneration, this);
     }
 
     void AfterMeshGeneration(Mesh mesh) {

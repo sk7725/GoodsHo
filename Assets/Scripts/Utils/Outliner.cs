@@ -26,4 +26,5 @@ public class Outliner : ScriptableObject
 
     [Header("Mesh Generation")]
     public float thickness = 0.02f;
+    [Range(0f, 1f)] public float bevel = 0.08f;
 }
