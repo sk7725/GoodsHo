@@ -6,7 +6,7 @@ public class AcrylSettings : SettingsHolder {
     [Header("References")]
     [SerializeField] private Transform body;
     [SerializeField] private Transform stand;
-    [SerializeField] private Transform defaultStand;
+    [SerializeField] private Transform defaultStand, customStand;
 
     [Header("Settings")]
     public Texture2D bodyImage;
@@ -18,7 +18,7 @@ public class AcrylSettings : SettingsHolder {
     public float bevel = 0.15f;
 
     public float bodyScale = 1f;
-    public float standScale = 0.5f;
+    public float standScale = 1f;
 
     public int outlineIterations = 3;
     public int downscaleFactor = 8;
@@ -33,10 +33,16 @@ public class AcrylSettings : SettingsHolder {
         body.transform.localScale = new Vector3(bodyScale, bodyScale, 1f);
         stand.transform.localScale = new Vector3(standScale, 1f, standScale);
         if (useDefaultStand) {
+            defaultStand.gameObject.SetActive(true);
+            customStand.gameObject.SetActive(false);
             defaultStand.transform.localScale = new Vector3(defaultStand.transform.localScale.x, thickness / 2f, defaultStand.transform.localScale.z);
             defaultStand.transform.localPosition = Vector3.up * (thickness / 2f);
+            stand.transform.localScale = new Vector3(standScale / 2f, 1f, standScale / 2f);
         }
         else {
+            defaultStand.gameObject.SetActive(false);
+            customStand.gameObject.SetActive(true);
+            customStand.transform.localPosition = Vector3.up * (thickness / 2f);
             AcrylManager.main.stand.sourceImage = standImage;
         }
 

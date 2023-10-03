@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class AcrylShaper : MonoBehaviour {
+    public bool isBody = true;
+
     [Header("Sources")]
     public Texture2D sourceImage;
     public Outliner outliner;
@@ -55,14 +57,16 @@ public class AcrylShaper : MonoBehaviour {
         //tempRenderer.texture = outlined;
         GetPath(outlined);
 
-        float miny = 0f;
-        for (int i = 0; i < points.Count; i++) {
-            if(miny > points[i].y) miny = points[i].y;
-        }
-        float l = -miny;
+        if (isBody) {
+            float miny = 0f;
+            for (int i = 0; i < points.Count; i++) {
+                if (miny > points[i].y) miny = points[i].y;
+            }
+            float l = -miny;
 
-        transform.localPosition = Vector3.forward * 0.0025f + Vector3.up * l;
-        imageScaler.transform.localPosition = Vector3.up * l;
+            transform.localPosition = Vector3.forward * 0.0025f + Vector3.up * l;
+            imageScaler.transform.localPosition = Vector3.up * l;
+        }
 
         //todo is it always cw?
         points.Reverse();

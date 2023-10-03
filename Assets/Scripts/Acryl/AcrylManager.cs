@@ -51,11 +51,7 @@ public class AcrylManager : MonoBehaviour {
         body.Shape();
         yield return new WaitWhile(() => body.Generating);
 
-        if (useDefaultStand) {
-            defaultStand.SetActive(true);
-        }
-        else {
-            defaultStand.SetActive(false);
+        if (!useDefaultStand) {
             stand.Shape();
             yield return new WaitWhile(() => stand.Generating);
         }

@@ -7,6 +7,8 @@ public class ImageScaler : MonoBehaviour {
     public MeshRenderer mrendererBack;
     public Transform body;
 
+    public bool isBody = true;
+
     private Material mat, mat1;
 
     private void Awake() {
@@ -23,6 +25,6 @@ public class ImageScaler : MonoBehaviour {
     public void SetScale() {
         Texture2D t = (Texture2D)mat.mainTexture;
         body.localScale = new Vector3(1, t.height / (float)t.width, 1);
-        body.localPosition = Vector3.up * transform.localScale.y / 2f;
+        if(isBody) body.localPosition = Vector3.up * transform.localScale.y / 2f;
     }
 }
