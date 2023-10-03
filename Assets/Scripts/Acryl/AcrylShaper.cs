@@ -18,46 +18,40 @@ public class AcrylShaper : MonoBehaviour {
     public MeshFilter filterBack;
     public MeshRenderer mrendererBack;
 
-    [Header("UI")]
-    public Image loadingBar;
-    public LocalizedTMP loadingLabel;
-    public RawImage tempRenderer;
+    private bool generating = false;
+
+    public bool Generating { get { return generating; } }
 
     List<Vector2> path = new();
     List<Vector2> points = new();
 
-    void Start() {
-        Shape(sourceImage);
-    }
-
-    private void Update() {
-        //todo temp
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Shape(sourceImage);
-        }
+    void Awake() {
+        generating = false;
     }
 
     Texture2D originalImage;
 
-    public void Shape(Texture2D source) {
-        originalImage = source;
+    public void Shape() {
+        if (generating) return;
+        generating = true;
+        originalImage = sourceImage;
         mrenderer.enabled = false;
         mrendererBack.enabled = false;
         path.Clear();
         points.Clear();
 
-        imageScaler.SetImage(source);
+        imageScaler.SetImage(sourceImage);
 
         //Texture2D outlined = TextureOutlineGenerator.Generate(source, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor);
         //tempRenderer.texture = outlined;
         //GetPath(outlined);
 
-        TextureOutlineGenerator.GenerateAsync(source, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, loadingLabel, loadingBar, AfterTextureGeneration, this);
+        TextureOutlineGenerator.GenerateAsync(sourceImage, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
-        loadingLabel.Set("getpath");
-        loadingBar.fillAmount = 0;
+        AcrylManager.main.loadingLabel.Set("getpath");
+        AcrylManager.main.loadingBar.fillAmount = 0;
         //tempRenderer.texture = outlined;
         GetPath(outlined);
 
@@ -84,16 +78,18 @@ public class AcrylShaper : MonoBehaviour {
         path.AddRange(points);
         LineUtility.Simplify(path, outliner.finalTolerance, points);
 
-        MeshGenerator.GenerateAsync(points, outliner.thickness, outliner.bevel, loadingLabel, loadingBar, AfterMeshGeneration, this);
+        MeshGenerator.GenerateAsync(points, outliner.thickness, outliner.bevel, AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterMeshGeneration, this);
     }
 
     void AfterMeshGeneration(Mesh mesh) {
-        loadingLabel.Set("done");
-        loadingBar.fillAmount = 1;
+        AcrylManager.main.loadingLabel.Set("done");
+        AcrylManager.main.loadingBar.fillAmount = 1;
         filter.mesh = mesh;
         mrenderer.enabled = true;
         filterBack.mesh = mesh;
         mrendererBack.enabled = true;
+
+        generating = false;
     }
 
     private void GetPath(Texture2D source) {

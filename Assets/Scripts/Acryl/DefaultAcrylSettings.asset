@@ -24,3 +24,4 @@ MonoBehaviour:
   smoothingWindow: 7
   finalTolerance: 0.0001
   thickness: 0.02
+  bevel: 0.15
