@@ -11,12 +11,19 @@ public class Outliner : ScriptableObject
     [Range(0f, 1f)] public float product = 0.99f;
     public float tolerance = 0.02f;
 
+    [Header("General Outine Settings")]
+    public bool useGaussian = false;
+    public int downscaleFactor = 10;
+
     [Header("Gaussian Outline")]
-    public float alphaCutoff = 0.1f;
+    public float alphaCutoffGaussian = 0.1f;
 
     public int outlineIterations = 3;
-    public int downscaleFactor = 10;
     public int outlinePadding = 5;
+
+    [Header("Dilation Outline")]
+    public float alphaCutoffDilation = 0.2f;
+    public int dilationRadius = 10; // note: will be affected by image size
 
     [Header("Smoothing")]
     public int subdivisions = 1;

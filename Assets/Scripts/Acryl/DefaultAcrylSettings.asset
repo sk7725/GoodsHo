@@ -15,10 +15,13 @@ MonoBehaviour:
   gapLength: 1
   product: 1
   tolerance: 0.001
-  alphaCutoff: 0.0005
-  outlineIterations: 2
+  useGaussian: 0
   downscaleFactor: 8
+  alphaCutoffGaussian: 0.001
+  outlineIterations: 4
   outlinePadding: 20
+  alphaCutoffDilation: 0.2
+  dilationRadius: 10
   subdivisions: 4
   smoothingFactor: 0.3
   smoothingWindow: 7

@@ -14,14 +14,24 @@ public class AcrylSettings : SettingsHolder {
 
     public bool useDefaultStand = true;
 
+    [Header("Model")]
     public float thickness = 0.04f;
     public float bevel = 0.15f;
 
+    [Header("Scale")]
     public float bodyScale = 1f;
     public float standScale = 1f;
 
-    public int outlineIterations = 3;
+    [Header("Outline")]
+    public bool useGaussian = false;
     public int downscaleFactor = 8;
+
+    [Header("Dilation Outline")]
+    public int outlineRadius = 16;
+    public float dilationAlphaCutoff = 0.2f;
+
+    [Header("Gaussian Outline")]
+    public int outlineIterations = 3;
     public float alphaCutoff = 0.1f;
 
     public override void Apply() {
@@ -31,7 +41,6 @@ public class AcrylSettings : SettingsHolder {
         AcrylManager.main.outliner.thickness = thickness / 2f;
         body.transform.localPosition = Vector3.up * thickness;
         body.transform.localScale = new Vector3(bodyScale, bodyScale, 1f);
-        stand.transform.localScale = new Vector3(standScale, 1f, standScale);
         if (useDefaultStand) {
             defaultStand.gameObject.SetActive(true);
             customStand.gameObject.SetActive(false);
@@ -44,12 +53,20 @@ public class AcrylSettings : SettingsHolder {
             customStand.gameObject.SetActive(true);
             customStand.transform.localPosition = Vector3.up * (thickness / 2f);
             AcrylManager.main.stand.sourceImage = standImage;
+
+            float actualStandScale = standScale * (standImage.width / bodyImage.width);
+            stand.transform.localScale = new Vector3(actualStandScale, 1f, actualStandScale);
         }
 
         AcrylManager.main.outliner.bevel = bevel;
-        AcrylManager.main.outliner.outlineIterations = outlineIterations;
+        AcrylManager.main.outliner.useGaussian = useGaussian;
         AcrylManager.main.outliner.downscaleFactor = downscaleFactor;
-        AcrylManager.main.outliner.alphaCutoff = alphaCutoff;
+
+        AcrylManager.main.outliner.alphaCutoffDilation = dilationAlphaCutoff;
+        AcrylManager.main.outliner.dilationRadius = outlineRadius;
+
+        AcrylManager.main.outliner.outlineIterations = outlineIterations;
+        AcrylManager.main.outliner.alphaCutoffGaussian = alphaCutoff;
     }
 
     public override void BuildUI(Transform table) {

@@ -48,7 +48,7 @@ public class AcrylShaper : MonoBehaviour {
         //tempRenderer.texture = outlined;
         //GetPath(outlined);
 
-        TextureOutlineGenerator.GenerateAsync(sourceImage, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
+        GaussianOutlineGenerator.GenerateAsync(sourceImage, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
@@ -98,7 +98,7 @@ public class AcrylShaper : MonoBehaviour {
 
     private void GetPath(Texture2D source) {
         var boundaryTracer = new ContourTracer();
-        boundaryTracer.Trace(source, new Vector2(0.5f, 0.5f), 100, outliner.gapLength, outliner.product, outliner.alphaCutoff);
+        boundaryTracer.Trace(source, new Vector2(0.5f, 0.5f), 100, outliner.gapLength, outliner.product, outliner.alphaCutoffGaussian);
 
         //get the first path only
         boundaryTracer.GetPath(0, ref path);
