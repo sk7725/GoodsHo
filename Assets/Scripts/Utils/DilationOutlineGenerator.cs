@@ -10,7 +10,7 @@ public static class DilationOutlineGenerator {
 
         int r = Mathf.CeilToInt(radius / (float)downscale);
         Texture2D expanded = ExpandTexture(initial, r + 2);
-        Texture2D final = Dilate(expanded, r, alphaCutoff);   //hi
+        Texture2D final = Dilate(expanded, r, alphaCutoff);
         Object.Destroy(expanded);
         Object.Destroy(initial);
         return final;
