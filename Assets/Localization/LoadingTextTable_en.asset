@@ -58,6 +58,10 @@ MonoBehaviour:
     m_Localized: Assigning Indices...
     m_Metadata:
       m_Items: []
+  - m_Id: 3996257132171264
+    m_Localized: Generating Cut Outlines...
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

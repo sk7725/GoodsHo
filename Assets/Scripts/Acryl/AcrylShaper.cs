@@ -48,13 +48,19 @@ public class AcrylShaper : MonoBehaviour {
         //tempRenderer.texture = outlined;
         //GetPath(outlined);
 
-        GaussianOutlineGenerator.GenerateAsync(sourceImage, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
+        if (outliner.useGaussian) {
+            GaussianOutlineGenerator.GenerateAsync(sourceImage, outliner.outlinePadding, outliner.outlineIterations, outliner.downscaleFactor, 
+                AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
+        }
+        else {
+            DilationOutlineGenerator.GenerateAsync(sourceImage, outliner.dilationRadius, outliner.alphaCutoffDilation, outliner.downscaleFactor,
+                AcrylManager.main.loadingLabel, AcrylManager.main.loadingBar, AfterTextureGeneration, this);
+        }
     }
 
     void AfterTextureGeneration(Texture2D outlined) {
         AcrylManager.main.loadingLabel.Set("getpath");
         AcrylManager.main.loadingBar.fillAmount = 0;
-        //tempRenderer.texture = outlined;
         GetPath(outlined);
 
         if (isBody) {
@@ -71,7 +77,9 @@ public class AcrylShaper : MonoBehaviour {
         //todo is it always cw?
         points.Reverse();
 
-        Destroy(outlined);
+        //Destroy(outlined); //todo uncomment
+        AcrylManager.main.blurPreview.texture = outlined;
+
         for (int i = 0; i < outliner.subdivisions; i++) {
             ShapeSmoothing.SubdivideEdges(points, 2);
             ShapeSmoothing.SmoothCorners(points, outliner.smoothingFactor, outliner.smoothingWindow);
@@ -98,13 +106,14 @@ public class AcrylShaper : MonoBehaviour {
 
     private void GetPath(Texture2D source) {
         var boundaryTracer = new ContourTracer();
-        boundaryTracer.Trace(source, new Vector2(0.5f, 0.5f), 100, outliner.gapLength, outliner.product, outliner.alphaCutoffGaussian);
+        boundaryTracer.Trace(source, new Vector2(0.5f, 0.5f), 100, outliner.gapLength, outliner.product, outliner.useGaussian ? outliner.alphaCutoffGaussian : 0.4f);
 
         //get the first path only
         boundaryTracer.GetPath(0, ref path);
         LineUtility.Simplify(path, outliner.tolerance, points);
 
-        float scale = 100f / (source.width - 2 * outliner.outlinePadding);
+        //float scale = 100f / (source.width - 2 * (outliner.outlinePadding));
+        float scale = 100f / (originalImage.width / outliner.downscaleFactor);
         for (int i = 0; i < points.Count; i++) {
             points[i] *= scale;
         }

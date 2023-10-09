@@ -16,15 +16,15 @@ MonoBehaviour:
   product: 1
   tolerance: 0.001
   useGaussian: 0
-  downscaleFactor: 8
+  downscaleFactor: 6
   alphaCutoffGaussian: 0.001
   outlineIterations: 4
   outlinePadding: 20
   alphaCutoffDilation: 0.2
-  dilationRadius: 10
-  subdivisions: 4
-  smoothingFactor: 0.3
-  smoothingWindow: 7
+  dilationRadius: 24
+  subdivisions: 2
+  smoothingFactor: 0.1
+  smoothingWindow: 5
   finalTolerance: 0.0001
   thickness: 0.02
   bevel: 0.15

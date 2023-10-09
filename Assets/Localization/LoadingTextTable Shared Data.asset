@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: mesh.assign
     m_Metadata:
       m_Items: []
+  - m_Id: 3996257132171264
+    m_Key: outline.dilation
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

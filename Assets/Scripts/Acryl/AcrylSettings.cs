@@ -13,8 +13,10 @@ public class AcrylSettings : SettingsHolder {
     public Texture2D standImage;
 
     public bool useDefaultStand = true;
+    public bool imageDoubleSided = true; //todo
+    public bool acrylDoubleSided = true; //todo
 
-    [Header("Model")]
+    [Header("Acryl")]
     public float thickness = 0.04f;
     public float bevel = 0.15f;
 
@@ -32,7 +34,12 @@ public class AcrylSettings : SettingsHolder {
 
     [Header("Gaussian Outline")]
     public int outlineIterations = 3;
-    public float alphaCutoff = 0.1f;
+    public float gaussianAlphaCutoff = 0.001f;
+
+    [Header("Edge Smoothing")]
+    public int smoothingSubdivisions = 1; //0: no smoothing at all
+    public float smoothingFactor = 0.3f; //0~0.5
+    public int smoothingWindow = 7; //3-9
 
     public override void Apply() {
         AcrylManager.main.body.sourceImage = bodyImage;
@@ -66,7 +73,11 @@ public class AcrylSettings : SettingsHolder {
         AcrylManager.main.outliner.dilationRadius = outlineRadius;
 
         AcrylManager.main.outliner.outlineIterations = outlineIterations;
-        AcrylManager.main.outliner.alphaCutoffGaussian = alphaCutoff;
+        AcrylManager.main.outliner.alphaCutoffGaussian = gaussianAlphaCutoff;
+
+        AcrylManager.main.outliner.subdivisions = smoothingSubdivisions;
+        AcrylManager.main.outliner.smoothingFactor = smoothingFactor;
+        AcrylManager.main.outliner.smoothingWindow = smoothingWindow;
     }
 
     public override void BuildUI(Transform table) {

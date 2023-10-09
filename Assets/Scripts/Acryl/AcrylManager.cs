@@ -18,6 +18,7 @@ public class AcrylManager : MonoBehaviour {
     public Image loadingBar;
     public LocalizedTMP loadingLabel;
     public Image loadingBackground;
+    public RawImage blurPreview;
 
     [NonSerialized] public bool useDefaultStand = true;
 
