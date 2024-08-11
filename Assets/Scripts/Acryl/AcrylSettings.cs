@@ -61,7 +61,10 @@ public class AcrylSettings : SettingsHolder {
             customStand.transform.localPosition = Vector3.up * (thickness / 2f);
             AcrylManager.main.stand.sourceImage = standImage;
 
-            float actualStandScale = standScale * (standImage.width / bodyImage.width);
+            float actualStandScale = standScale * (standImage.width / (float)bodyImage.width);
+            Debug.Log(actualStandScale);
+            Debug.Log(standImage.width);
+            Debug.Log(bodyImage.width);
             stand.transform.localScale = new Vector3(actualStandScale, 1f, actualStandScale);
         }
 
