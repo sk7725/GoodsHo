@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.33635092, g: 0.6991174, b: 0.891669, a: 1}
+  m_IndirectSpecularColor: {r: 0.33605918, g: 0.698813, b: 0.8936229, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3320,7 +3320,7 @@ MonoBehaviour:
   stand: {fileID: 232852962}
   defaultStand: {fileID: 2110292731}
   customStand: {fileID: 1414125586}
-  bodyImage: {fileID: 2800000, guid: 682b3d04011a04d41abd964b7d8cf5f8, type: 3}
+  bodyImage: {fileID: 2800000, guid: 881cc8d265407514fbeff2bf504de19e, type: 3}
   standImage: {fileID: 2800000, guid: 8365f36f7f143214e802fafa118a1c4b, type: 3}
   useDefaultStand: 1
   imageDoubleSided: 1
